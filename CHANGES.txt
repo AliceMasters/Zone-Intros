@@ -1,0 +1,19 @@
+Zone Intro - changes
+
+Unreleased
+- Zone scan: researching every zone, city, dungeon, raid, battleground, arena, scenario, delve and
+  island expedition (510 places) from warcraft.wiki.gg, aiming for 10-20 lines each where the wiki
+  supports it. Places with thin sources keep fewer lines rather than padding.
+- Every line is labelled in plain text: Lore:, Trivia: or Note:. No colour coding.
+- Settings panel (/zoneintro settings): choose which kinds of line appear, plus banner, UI fade,
+  first-login and drift options.
+- New commands: /zoneintro settings, lore, trivia, notes.
+
+Polish pass
+- Smoother pan: one timeline with easing, no snapping while the text drifts.
+- Rapid zone changes no longer spam banners (debounce and cooldowns).
+- No banner on first login or reload unless "Also show it on first login" is on.
+- Opening a panel (character, map, etc.) during the UI fade ends the fade straight away.
+
+Initial version
+- Cinematic letterbox banner with zone name and a line of lore on zone change.

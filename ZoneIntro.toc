@@ -1,0 +1,9 @@
+## Interface: 120100
+
+## Title: Zone Intro
+## Notes: A cinematic banner when you enter a zone: the zone name and an ominous line of lore.
+## Version: 0.1
+## SavedVariables: ZoneIntroDB
+
+Quotes.lua
+ZoneIntro.lua
