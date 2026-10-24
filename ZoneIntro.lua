@@ -404,6 +404,8 @@ local function ScheduleCheck(delay)
     end)
 end
 
+local BuildSettings   -- defined with the settings panel below
+
 local events = CreateFrame("Frame")
 events:RegisterEvent("PLAYER_ENTERING_WORLD")
 events:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -439,7 +441,7 @@ end)
 local Say   -- defined with the commands below
 
 local settingsCategory
-local function BuildSettings()
+function BuildSettings()
     if settingsCategory or not (Settings and Settings.RegisterCanvasLayoutCategory) then return end
     local panel = CreateFrame("Frame", "ZoneIntroSettings", UIParent)
     panel.name = "Zone Intro"
