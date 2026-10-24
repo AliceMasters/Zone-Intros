@@ -1,9 +1,12 @@
 Zone Intro - changes
 
-Unreleased
-- Zone scan: researching every zone, city, dungeon, raid, battleground, arena, scenario, delve and
-  island expedition (510 places) from warcraft.wiki.gg, aiming for 10-20 lines each where the wiki
-  supports it. Places with thin sources keep fewer lines rather than padding.
+1.0.0
+- Zone scan: every zone, city, dungeon, raid, battleground, arena, scenario, delve and island expedition on
+  the master list (510 places, 499 with lines) was researched from warcraft.wiki.gg. About 4,800 lines in
+  total. Places with thin sources keep fewer lines rather than padding; cut or unreleased content has none.
+- Places that exist on two continents (Nagrand, Shadowmoon Valley) use the lines for the continent you are on.
+- In-game names that differ from the lore page (Hyjal Summit, Blackrock Spire, Dalaran Sewers) are mapped.
+- Fixed the settings panel not registering in the AddOns list.
 - Every line is labelled in plain text: Lore:, Trivia: or Note:. No colour coding.
 - Settings panel (/zoneintro settings): choose which kinds of line appear, plus banner, UI fade,
   first-login and drift options.

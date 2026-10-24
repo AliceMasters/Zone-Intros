@@ -69,6 +69,15 @@ local function Index()
         end
         for _, line in ipairs(lines) do table.insert(pool, line) end
     end
+    -- Places the game names differently from the lore pages (see ns.ALIASES in Quotes.lua).
+    for gameName, sources in pairs(ns.ALIASES or {}) do
+        local key = Norm(gameName)
+        index[key] = index[key] or { shared = {}, era = {} }
+        for _, source in ipairs(sources) do
+            local from = index[Norm(source)]
+            if from then for _, line in ipairs(from.shared) do table.insert(index[key].shared, line) end end
+        end
+    end
     return index
 end
 
