@@ -51,23 +51,52 @@ local function Norm(name)
     return (name:gsub("[^%w]", ""))
 end
 
+-- A few places exist in more than one era (Nagrand, Shadowmoon Valley). Lines filed under "Name" are true in
+-- every era; lines filed under "Name (Draenor)" or "Name (Outland)" only play when you are on that continent.
 local index
 local function Index()
     if index then return index end
     index = {}
     for name, lines in pairs(ns.ZONE_QUOTES) do
-        local key = Norm(name)
-        index[key] = index[key] or {}
-        for _, line in ipairs(lines) do table.insert(index[key], line) end
+        local base, era = name:match("^(.-)%s*%((.-)%)$")
+        local key = Norm(base or name)
+        index[key] = index[key] or { shared = {}, era = {} }
+        local pool = index[key].shared
+        if era then
+            local e = Norm(era)
+            index[key].era[e] = index[key].era[e] or {}
+            pool = index[key].era[e]
+        end
+        for _, line in ipairs(lines) do table.insert(pool, line) end
     end
     return index
+end
+
+-- Name of the continent you are standing on, or nil when it can't be worked out.
+local function ContinentName()
+    if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetMapInfo) then return nil end
+    local mapID = C_Map.GetBestMapForUnit("player")
+    for _ = 1, 10 do
+        local info = mapID and C_Map.GetMapInfo(mapID)
+        if not info then return nil end
+        if info.mapType == Enum.UIMapType.Continent then return info.name end
+        mapID = info.parentMapID
+    end
 end
 
 -- All lines written for a zone (built in and your own), before the settings filter.
 local function LinesFor(zone)
     local key = Norm(zone)
     local all = {}
-    for _, line in ipairs(Index()[key] or {}) do table.insert(all, line) end
+    local entry = Index()[key]
+    if entry then
+        for _, line in ipairs(entry.shared) do table.insert(all, line) end
+        if next(entry.era) then
+            local continent = ContinentName()
+            local pool = continent and entry.era[Norm(continent)]
+            if pool then for _, line in ipairs(pool) do table.insert(all, line) end end
+        end
+    end
     for name, lines in pairs(DB().custom) do
         if Norm(name) == key then for _, line in ipairs(lines) do table.insert(all, line) end end
     end
